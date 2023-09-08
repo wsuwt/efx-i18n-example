@@ -1,0 +1,82 @@
+import { BasicElement, CSSResultGroup, TemplateResult, css, html } from '@refinitiv-ui/core';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
+
+import { Translate, translate } from '@refinitiv-ui/translate';
+
+import '@refinitiv-ui/elements/button';
+import '@refinitiv-ui/elements/panel';
+
+import './locale/en/efx-i18n-example.js';
+
+/**
+ * Replace the text with element description
+ *
+ * efx-i18n-example component used to init EF elements.
+ * Change to `@customElement('efx-i18n-example', { theme: false })`
+ * if the element does not have a corresponding theme
+ */
+@customElement('efx-i18n-example')
+export class EfxI18nExample extends BasicElement {
+  /**
+   * A `CSSResultGroup` that will be used
+   * to style the host, slotted children
+   * and the internal template of the element.
+   * @return CSS template
+   */
+  static override get styles(): CSSResultGroup {
+    return css`
+      :host {
+        display: block;
+        margin: 0px auto;
+        text-align: center;
+      }
+    `;
+  }
+
+  /**
+   * Copy for the read the docs hint.
+   */
+  @property()
+  public docsHint = 'Click on the Lit logos to learn more';
+
+  /**
+   * The number of times the button has been clicked.
+   */
+  @property({ type: Number })
+  public count = 0;
+
+  /**
+   * Used for translations
+   */
+  @translate()
+  protected t!: Translate;
+
+  /**
+   * Run when button is tapped
+   * @returns {void}
+   */
+  private onTap(): void {
+    this.count++;
+  }
+
+  /**
+   * A `TemplateResult` that will be used
+   * to render the updated internal template.
+   * @return Render template
+   */
+  protected override render(): TemplateResult {
+    return html`
+      <ef-panel part="container">
+        <div part="logo-container">
+          <a href="https://lit.dev" target="_blank">
+            <img src="https://lit.dev/images/logo.svg" part="logo" class="logo lit" alt="Lit logo" />
+          </a>
+        </div>
+        <slot></slot>
+        <ef-button part="button" @tap="${this.onTap}"> ${this.t('COUNT')} ${this.count} </ef-button>
+        <p part="sub-title">${this.docsHint}</p>
+      </ef-panel>
+    `;
+  }
+}

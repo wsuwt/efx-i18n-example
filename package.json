@@ -1,0 +1,50 @@
+{
+  "name": "efx-i18n-example",
+  "version": "0.0.0",
+  "description": "Template for building elements",
+  "main": "./lib/efx-i18n-example.js",
+  "module": "./lib/efx-i18n-example.js",
+  "types": "./lib/efx-i18n-example.d.ts",
+  "type": "module",
+  "repository": "",
+  "author": "Refinitiv",
+  "license": "Apache-2.0",
+  "engines": {
+    "npm": ">=7.0.0"
+  },
+  "scripts": {
+    "start": "vite --open --base=/demo/",
+    "build": "npm run build:themes && tsc --sourceMap --declarationMap",
+    "build:themes": "npm run build:theme-halo",
+    "build:theme-halo": "cd themes/halo && theme-compiler light --variant light --registration=event && theme-compiler dark --variant dark --registration=event",
+    "prepare": "npm run build:themes",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "test": "wtr --node-resolve",
+    "test:watch": "wtr --node-resolve --watch",
+    "test:snapshots": "wtr --node-resolve --update-snapshots",
+    "generate:jsx": "node ./scripts/jsx/jsxdts-generator.js",
+    "prepublishOnly": "npm run build && npm run generate:jsx"
+  },
+  "dependencies": {
+    "tslib": "^2.4.0"
+  },
+  "devDependencies": {
+    "@refinitiv-ui/configurations": "^7.0.0",
+    "@refinitiv-ui/halo-theme": "^7.0.0",
+    "@refinitiv-ui/test-helpers": "^7.0.0",
+    "@refinitiv-ui/theme-compiler": "^7.0.0",
+    "@web/dev-server-esbuild": "^0.4.1",
+    "@web/test-runner": "^0.16.1",
+    "@web/test-runner-playwright": "^0.10.1",
+    "fast-glob": "^3.2.12",
+    "typescript": "^4.8.3",
+    "vite": "^4.3.9"
+  },
+  "peerDependencies": {
+    "@refinitiv-ui/core": "^7.0.0",
+    "@refinitiv-ui/elements": "^7.0.0",
+    "@refinitiv-ui/translate": "^7.0.0",
+    "@refinitiv-ui/phrasebook": "^7.0.0"
+  }
+}
